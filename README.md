@@ -1,8 +1,8 @@
 # Upstash Vector SDK for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/upstash/vector-laravel.svg?style=flat-square)](https://packagist.org/packages/upstash/vector-laravel)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/upstash/vector-laravel/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/upstash/vector-laravel/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/upstash/vector-laravel/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/upstash/vector-laravel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/upstash/vector-laravel/run-tests.yml?branch=master&label=tests&style=flat-square)](https://github.com/upstash/vector-laravel/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/upstash/vector-laravel/fix-php-code-style-issues.yml?branch=master&label=code%20style&style=flat-square)](https://github.com/upstash/vector-laravel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/upstash/vector-laravel.svg?style=flat-square)](https://packagist.org/packages/upstash/vector-laravel)
 
 Upstash Vector is an HTTP serverless Vector Database.
