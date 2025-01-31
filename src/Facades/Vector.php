@@ -13,8 +13,11 @@ use Upstash\Vector\NamespaceInfo;
 use Upstash\Vector\VectorDeleteResult;
 use Upstash\Vector\VectorFetch;
 use Upstash\Vector\VectorFetchResult;
+use Upstash\Vector\VectorMatch;
 use Upstash\Vector\VectorQuery;
+use Upstash\Vector\VectorQueryManyResult;
 use Upstash\Vector\VectorQueryResult;
+use Upstash\Vector\VectorUpdate;
 use Upstash\Vector\VectorUpsert;
 
 /**
@@ -25,14 +28,17 @@ use Upstash\Vector\VectorUpsert;
  * @method static void reset()
  * @method static void deleteNamespace()
  * @method static void upsert(VectorUpsert $vector)
- * @method static void upsertMany(array $vectors)
+ * @method static void upsertMany(VectorUpsert[] $vectors)
  * @method static void upsertData(DataUpsert $data)
- * @method static void upsertDataMany(array $data)
+ * @method static void upsertDataMany(DataUpsert[] $data)
  * @method static VectorQueryResult query(VectorQuery $query)
+ * @method static VectorQueryManyResult queryMany(VectorQuery[] $queries)
  * @method static DataQueryResult queryData(DataQuery $query)
- * @method static VectorDeleteResult delete(array $ids)
+ * @method static VectorDeleteResult delete(string[] $ids)
  * @method static VectorFetchResult fetch(VectorFetch $vectorFetch)
  * @method static IndexInterface connection(string $connection)
+ * @method static VectorMatch|null random()
+ * @method static void update(VectorUpdate $update)
  *
  * @see \Upstash\Vector\Laravel\VectorManager
  * @see \Upstash\Vector\Index

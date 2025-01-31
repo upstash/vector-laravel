@@ -6,7 +6,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Upstash\Vector\Contracts\IndexInterface;
-use Upstash\VectorLaravel\Commands\VectorLaravelCommand;
 
 class VectorServiceProvider extends PackageServiceProvider
 {

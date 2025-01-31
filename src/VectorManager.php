@@ -16,8 +16,11 @@ use Upstash\Vector\NamespaceInfo;
 use Upstash\Vector\VectorDeleteResult;
 use Upstash\Vector\VectorFetch;
 use Upstash\Vector\VectorFetchResult;
+use Upstash\Vector\VectorMatch;
 use Upstash\Vector\VectorQuery;
+use Upstash\Vector\VectorQueryManyResult;
 use Upstash\Vector\VectorQueryResult;
+use Upstash\Vector\VectorUpdate;
 use Upstash\Vector\VectorUpsert;
 
 class VectorManager implements IndexInterface
@@ -136,5 +139,20 @@ class VectorManager implements IndexInterface
     private function getConfig(): array
     {
         return $this->app['config']['vector'];
+    }
+
+    public function queryMany(array $queries): VectorQueryManyResult
+    {
+        return $this->getDefaultConnection()->queryMany($queries);
+    }
+
+    public function random(): ?VectorMatch
+    {
+        return $this->getDefaultConnection()->random();
+    }
+
+    public function update(VectorUpdate $update): void
+    {
+        $this->getDefaultConnection()->update($update);
     }
 }
