@@ -12,6 +12,7 @@ use Upstash\Vector\DataQueryResult;
 use Upstash\Vector\DataUpsert;
 use Upstash\Vector\Index;
 use Upstash\Vector\IndexInfo;
+use Upstash\Vector\Iterators\VectorRangeIterator;
 use Upstash\Vector\NamespaceInfo;
 use Upstash\Vector\VectorDeleteResult;
 use Upstash\Vector\VectorFetch;
@@ -20,6 +21,8 @@ use Upstash\Vector\VectorMatch;
 use Upstash\Vector\VectorQuery;
 use Upstash\Vector\VectorQueryManyResult;
 use Upstash\Vector\VectorQueryResult;
+use Upstash\Vector\VectorRange;
+use Upstash\Vector\VectorRangeResult;
 use Upstash\Vector\VectorUpdate;
 use Upstash\Vector\VectorUpsert;
 
@@ -154,5 +157,20 @@ class VectorManager implements IndexInterface
     public function update(VectorUpdate $update): void
     {
         $this->getDefaultConnection()->update($update);
+    }
+
+    public function listNamespaces(): array
+    {
+        return $this->getDefaultConnection()->listNamespaces();
+    }
+
+    public function range(VectorRange $range): VectorRangeResult
+    {
+        return $this->getDefaultConnection()->range($range);
+    }
+
+    public function rangeIterator(VectorRange $range): VectorRangeIterator
+    {
+        return $this->getDefaultConnection()->rangeIterator($range);
     }
 }
