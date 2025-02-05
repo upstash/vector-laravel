@@ -1,7 +1,7 @@
 {
     "name": "upstash/vector-laravel",
     "description": "Upstash Vector SDK for Laravel",
-    "version": "v0.2.1",
+    "version": "v0.2.2",
     "keywords": [
         "Upstash",
         "laravel",
@@ -20,7 +20,7 @@
         "php": "^8.3",
         "illuminate/contracts": "^10.0||^11.0",
         "spatie/laravel-package-tools": "^1.16",
-        "upstash/vector": "^0.2.0"
+        "upstash/vector": "^1.0.0"
     },
     "require-dev": {
         "laravel/pint": "^1.14",
