@@ -1,7 +1,7 @@
 {
     "name": "upstash/vector-laravel",
     "description": "Upstash Vector SDK for Laravel",
-    "version": "v0.2.2",
+    "version": "v1.0.0",
     "keywords": [
         "Upstash",
         "laravel",
