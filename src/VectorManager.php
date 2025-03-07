@@ -14,8 +14,11 @@ use Upstash\Vector\Index;
 use Upstash\Vector\IndexInfo;
 use Upstash\Vector\Iterators\VectorRangeIterator;
 use Upstash\Vector\NamespaceInfo;
+use Upstash\Vector\VectorDeleteByMetadataFilter;
+use Upstash\Vector\VectorDeleteByPrefix;
 use Upstash\Vector\VectorDeleteResult;
 use Upstash\Vector\VectorFetch;
+use Upstash\Vector\VectorFetchByPrefix;
 use Upstash\Vector\VectorFetchResult;
 use Upstash\Vector\VectorMatch;
 use Upstash\Vector\VectorQuery;
@@ -108,12 +111,12 @@ class VectorManager implements IndexInterface
         return $this->getDefaultConnection()->queryData($query);
     }
 
-    public function delete(array $ids): VectorDeleteResult
+    public function delete(array|string|VectorDeleteByPrefix|VectorDeleteByMetadataFilter $ids): VectorDeleteResult
     {
         return $this->getDefaultConnection()->delete($ids);
     }
 
-    public function fetch(VectorFetch $vectorFetch): VectorFetchResult
+    public function fetch(VectorFetch|VectorFetchByPrefix $vectorFetch): VectorFetchResult
     {
         return $this->getDefaultConnection()->fetch($vectorFetch);
     }
