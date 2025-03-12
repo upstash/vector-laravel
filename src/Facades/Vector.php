@@ -11,8 +11,11 @@ use Upstash\Vector\DataUpsert;
 use Upstash\Vector\IndexInfo;
 use Upstash\Vector\Iterators\VectorRangeIterator;
 use Upstash\Vector\NamespaceInfo;
+use Upstash\Vector\VectorDeleteByMetadataFilter;
+use Upstash\Vector\VectorDeleteByPrefix;
 use Upstash\Vector\VectorDeleteResult;
 use Upstash\Vector\VectorFetch;
+use Upstash\Vector\VectorFetchByPrefix;
 use Upstash\Vector\VectorFetchResult;
 use Upstash\Vector\VectorMatch;
 use Upstash\Vector\VectorQuery;
@@ -37,8 +40,8 @@ use Upstash\Vector\VectorUpsert;
  * @method static VectorQueryResult query(VectorQuery $query)
  * @method static VectorQueryManyResult queryMany(VectorQuery[] $queries)
  * @method static DataQueryResult queryData(DataQuery $query)
- * @method static VectorDeleteResult delete(string[] $ids)
- * @method static VectorFetchResult fetch(VectorFetch $vectorFetch)
+ * @method static VectorDeleteResult delete(string[]|string|VectorDeleteByPrefix|VectorDeleteByMetadataFilter $ids)
+ * @method static VectorFetchResult fetch(VectorFetch|VectorFetchByPrefix $vectorFetch)
  * @method static IndexInterface connection(string $connection)
  * @method static VectorMatch|null random()
  * @method static void update(VectorUpdate $update)
