@@ -6,7 +6,9 @@ use Illuminate\Contracts\Foundation\Application;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Upstash\Vector\Contracts\IndexInterface;
+use Upstash\Vector\Laravel\Commands\VectorIndexResetCommand;
 use Upstash\Vector\Laravel\Commands\VectorInfoCommand;
+use Upstash\Vector\Laravel\Commands\VectorNamespaceDeleteCommand;
 use Upstash\Vector\Laravel\Commands\VectorNamespaceListCommand;
 
 class VectorServiceProvider extends PackageServiceProvider
@@ -18,6 +20,8 @@ class VectorServiceProvider extends PackageServiceProvider
             ->hasCommands([
                 VectorInfoCommand::class,
                 VectorNamespaceListCommand::class,
+                VectorNamespaceDeleteCommand::class,
+                VectorIndexResetCommand::class,
             ]);
     }
 
