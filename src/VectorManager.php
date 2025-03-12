@@ -4,7 +4,6 @@ namespace Upstash\Vector\Laravel;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Arr;
-use InvalidArgumentException;
 use Upstash\Vector\Contracts\IndexInterface;
 use Upstash\Vector\Contracts\IndexNamespaceInterface;
 use Upstash\Vector\DataQuery;
@@ -13,6 +12,8 @@ use Upstash\Vector\DataUpsert;
 use Upstash\Vector\Index;
 use Upstash\Vector\IndexInfo;
 use Upstash\Vector\Iterators\VectorRangeIterator;
+use Upstash\Vector\Laravel\Exceptions\MissingConnectionException;
+use Upstash\Vector\Laravel\Exceptions\MissingCredentialsException;
 use Upstash\Vector\NamespaceInfo;
 use Upstash\Vector\VectorDeleteByMetadataFilter;
 use Upstash\Vector\VectorDeleteByPrefix;
@@ -121,22 +122,31 @@ class VectorManager implements IndexInterface
         return $this->getDefaultConnection()->fetch($vectorFetch);
     }
 
-    private function loadIndexFromConfig(string $name): IndexInterface
+    private function loadIndexFromConfig(string $connectionName): IndexInterface
     {
-        $connection = Arr::get($this->getConfig(), sprintf('connections.%s', $name));
+        $connection = Arr::get($this->getConfig(), sprintf('connections.%s', $connectionName));
         if ($connection === null) {
-            // TODO: Change Exception
-            throw new InvalidArgumentException(sprintf('Connection "%s" not found in config', $name));
+            throw new MissingConnectionException(
+                message: sprintf('Connection "%s" not found in config', $connectionName),
+                connectionName: $connectionName,
+            );
         }
 
         ['url' => $url, 'token' => $token] = $connection;
 
+        if ($url === null && $token === null) {
+            throw new MissingCredentialsException(
+                message: 'url and token are missing',
+                connectionName: $connectionName,
+            );
+        }
+
         if ($url === null) {
-            throw new \Exception('URL cannot be null');
+            throw new MissingCredentialsException('url is missing', connectionName: $connectionName);
         }
 
         if ($token === null) {
-            throw new \Exception('Token cannot be null');
+            throw new MissingCredentialsException('token is missing', connectionName: $connectionName);
         }
 
         return new Index($url, $token);

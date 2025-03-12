@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Upstash\Vector\Contracts\IndexInterface;
 use Upstash\Vector\Laravel\Commands\Concerns\ConnectionOptionTrait;
+use Upstash\Vector\Laravel\Commands\Concerns\HandlesGeneralExceptionsTrait;
 
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\multiselect;
@@ -14,12 +15,20 @@ use function Laravel\Prompts\spin;
 class VectorNamespaceDeleteCommand extends Command
 {
     use ConnectionOptionTrait;
+    use HandlesGeneralExceptionsTrait;
 
     public $signature = 'vector:namespace:delete {namespaces?*} {--C|connection=default}';
 
     public $description = 'Deletes a specific namespace from the index';
 
     public function handle(): int
+    {
+        return $this->decorateHandler(
+            $this->handleSafely(...)
+        );
+    }
+
+    public function handleSafely(): int
     {
         $index = $this->getConnection();
         $namespacesToDelete = $this->getNamespacesToDelete($index)->unique();

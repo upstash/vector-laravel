@@ -5,18 +5,27 @@ namespace Upstash\Vector\Laravel\Commands;
 use Illuminate\Console\Command;
 use Upstash\Vector\Enums\IndexType;
 use Upstash\Vector\Laravel\Commands\Concerns\ConnectionOptionTrait;
+use Upstash\Vector\Laravel\Commands\Concerns\HandlesGeneralExceptionsTrait;
 
 use function Laravel\Prompts\spin;
 
 class VectorInfoCommand extends Command
 {
     use ConnectionOptionTrait;
+    use HandlesGeneralExceptionsTrait;
 
     public $signature = 'vector:info {--C|connection=default}';
 
     public $description = 'Displays information about the vector index';
 
     public function handle(): int
+    {
+        return $this->decorateHandler(
+            $this->handleSafely(...)
+        );
+    }
+
+    public function handleSafely(): int
     {
         $index = $this->getConnection();
 

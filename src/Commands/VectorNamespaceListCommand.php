@@ -4,6 +4,7 @@ namespace Upstash\Vector\Laravel\Commands;
 
 use Illuminate\Console\Command;
 use Upstash\Vector\Laravel\Commands\Concerns\ConnectionOptionTrait;
+use Upstash\Vector\Laravel\Commands\Concerns\HandlesGeneralExceptionsTrait;
 use Upstash\Vector\NamespaceInfo;
 
 use function Laravel\Prompts\spin;
@@ -12,12 +13,20 @@ use function Laravel\Prompts\table;
 class VectorNamespaceListCommand extends Command
 {
     use ConnectionOptionTrait;
+    use HandlesGeneralExceptionsTrait;
 
     public $signature = 'vector:namespace:list {--C|connection=default}';
 
     public $description = 'Display the namespaces on an index';
 
     public function handle(): int
+    {
+        return $this->decorateHandler(
+            $this->handleSafely(...)
+        );
+    }
+
+    public function handleSafely(): int
     {
         $index = $this->getConnection();
 

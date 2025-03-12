@@ -4,6 +4,7 @@ namespace Upstash\Vector\Laravel\Commands;
 
 use Illuminate\Console\Command;
 use Upstash\Vector\Laravel\Commands\Concerns\ConnectionOptionTrait;
+use Upstash\Vector\Laravel\Commands\Concerns\HandlesGeneralExceptionsTrait;
 
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\info;
@@ -11,12 +12,20 @@ use function Laravel\Prompts\info;
 class VectorIndexResetCommand extends Command
 {
     use ConnectionOptionTrait;
+    use HandlesGeneralExceptionsTrait;
 
     public $signature = 'vector:index:reset {--C|connection=default}';
 
     public $description = 'Resets all the namespaces on an index';
 
     public function handle(): int
+    {
+        return $this->decorateHandler(
+            $this->handleSafely(...)
+        );
+    }
+
+    public function handleSafely(): int
     {
         $index = $this->getConnection();
 
