@@ -9,7 +9,9 @@ use Upstash\Vector\Contracts\IndexInterface;
 use Upstash\Vector\Laravel\Console\Commands\VectorIndexResetCommand;
 use Upstash\Vector\Laravel\Console\Commands\VectorInfoCommand;
 use Upstash\Vector\Laravel\Console\Commands\VectorNamespaceDeleteCommand;
+use Upstash\Vector\Laravel\Console\Commands\VectorNamespaceInfoCommand;
 use Upstash\Vector\Laravel\Console\Commands\VectorNamespaceListCommand;
+use Upstash\Vector\Laravel\Console\Commands\VectorNamespaceResetCommand;
 
 class VectorServiceProvider extends PackageServiceProvider
 {
@@ -21,6 +23,8 @@ class VectorServiceProvider extends PackageServiceProvider
                 VectorInfoCommand::class,
                 VectorNamespaceListCommand::class,
                 VectorNamespaceDeleteCommand::class,
+                VectorNamespaceResetCommand::class,
+                VectorNamespaceInfoCommand::class,
                 VectorIndexResetCommand::class,
             ]);
     }
