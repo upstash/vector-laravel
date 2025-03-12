@@ -15,7 +15,7 @@ class VectorNamespaceListCommand extends Command
     use ConnectionOptionTrait;
     use HandlesGeneralExceptionsTrait;
 
-    public $signature = 'vector:namespace:list {--C|connection=default}';
+    public $signature = 'vector:namespace:list {--C|connection=default : Connection name to be used}';
 
     public $description = 'Display the namespaces on an index';
 

@@ -14,7 +14,10 @@ class VectorNamespaceInfoCommand extends Command
     use ConnectionOptionTrait;
     use HandlesGeneralExceptionsTrait;
 
-    public $signature = 'vector:namespace:info {namespace} {--C|connection=default}';
+    public $signature = 'vector:namespace:info
+        {namespace : Namespace name to display info}
+        {--C|connection=default : Connection name to be used}
+    ';
 
     public $description = 'Display the namespace info';
 

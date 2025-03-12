@@ -14,7 +14,7 @@ class VectorIndexResetCommand extends Command
     use ConnectionOptionTrait;
     use HandlesGeneralExceptionsTrait;
 
-    public $signature = 'vector:index:reset {--C|connection=default}';
+    public $signature = 'vector:index:reset {--C|connection=default : Connection name to be used}';
 
     public $description = 'Resets all the namespaces on an index';
 

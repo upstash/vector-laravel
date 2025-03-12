@@ -17,7 +17,10 @@ class VectorNamespaceResetCommand extends Command
     use ConnectionOptionTrait;
     use HandlesGeneralExceptionsTrait;
 
-    public $signature = 'vector:namespace:reset {namespaces?*} {--C|connection=default}';
+    public $signature = 'vector:namespace:reset
+        {namespaces?* : List of namespace names to reset}
+        {--C|connection=default : Connection name to be used}
+    ';
 
     public $description = 'Resets a specific namespace from the index';
 

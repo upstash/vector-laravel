@@ -17,7 +17,10 @@ class VectorNamespaceDeleteCommand extends Command
     use ConnectionOptionTrait;
     use HandlesGeneralExceptionsTrait;
 
-    public $signature = 'vector:namespace:delete {namespaces?*} {--C|connection=default}';
+    public $signature = 'vector:namespace:delete
+        {namespaces?* : List of namespace names to delete}
+        {--C|connection=default : Connection name to be used}
+    ';
 
     public $description = 'Deletes a specific namespace from the index';
 

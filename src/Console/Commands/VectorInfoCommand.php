@@ -14,7 +14,7 @@ class VectorInfoCommand extends Command
     use ConnectionOptionTrait;
     use HandlesGeneralExceptionsTrait;
 
-    public $signature = 'vector:info {--C|connection=default}';
+    public $signature = 'vector:info {--C|connection=default : Connection name to be used}';
 
     public $description = 'Displays information about the vector index';
 
