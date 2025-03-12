@@ -1,10 +1,10 @@
 <?php
 
-namespace Upstash\Vector\Laravel\Commands;
+namespace Upstash\Vector\Laravel\Console\Commands;
 
 use Illuminate\Console\Command;
-use Upstash\Vector\Laravel\Commands\Concerns\ConnectionOptionTrait;
-use Upstash\Vector\Laravel\Commands\Concerns\HandlesGeneralExceptionsTrait;
+use Upstash\Vector\Laravel\Console\Commands\Concerns\ConnectionOptionTrait;
+use Upstash\Vector\Laravel\Console\Commands\Concerns\HandlesGeneralExceptionsTrait;
 
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\info;

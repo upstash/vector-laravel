@@ -1,6 +1,6 @@
 <?php
 
-namespace Upstash\Vector\Laravel\Commands\Concerns;
+namespace Upstash\Vector\Laravel\Console\Commands\Concerns;
 
 use Upstash\Vector\Laravel\Exceptions\MissingConnectionException;
 use Upstash\Vector\Laravel\Exceptions\MissingCredentialsException;
