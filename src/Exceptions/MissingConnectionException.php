@@ -10,11 +10,10 @@ use Throwable;
 class MissingConnectionException extends \Exception
 {
     public function __construct(
-        string $message = '',
         int $code = 0,
         ?Throwable $previous = null,
         public string $connectionName = ''
     ) {
-        parent::__construct($message, $code, $previous);
+        parent::__construct("Connection [{$connectionName}] is missing.", $code, $previous);
     }
 }
