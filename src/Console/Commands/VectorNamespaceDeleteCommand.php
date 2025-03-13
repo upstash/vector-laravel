@@ -79,6 +79,16 @@ class VectorNamespaceDeleteCommand extends Command
         }
 
         foreach ($namespacesToDelete as $namespace) {
+            if ($namespace === '') {
+                $this->components->error('You cannot delete the "default" namespace');
+
+                if ($namespacesToDelete->count() === 1) {
+                    return self::FAILURE;
+                }
+
+                continue;
+            }
+
             $this->components->task(
                 sprintf('Deleting namespace %s', $namespace),
                 fn () => $index->namespace($namespace)->deleteNamespace(),

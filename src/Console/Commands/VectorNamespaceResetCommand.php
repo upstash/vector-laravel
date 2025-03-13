@@ -80,7 +80,7 @@ class VectorNamespaceResetCommand extends Command
 
         foreach ($namespacesToReset as $namespace) {
             $this->components->task(
-                sprintf('Resetting namespace %s', $namespace),
+                sprintf('Resetting namespace %s', $namespace === '' ? '(default)' : $namespace),
                 fn () => $index->namespace($namespace)->reset(),
             );
         }
