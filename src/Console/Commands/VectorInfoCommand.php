@@ -3,7 +3,9 @@
 namespace Upstash\Vector\Laravel\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Number;
 use Upstash\Vector\Enums\IndexType;
+use Upstash\Vector\IndexInfo;
 use Upstash\Vector\Laravel\Console\Commands\Concerns\ConnectionOptionTrait;
 use Upstash\Vector\Laravel\Console\Commands\Concerns\HandlesGeneralExceptionsTrait;
 
@@ -30,6 +32,7 @@ class VectorInfoCommand extends Command
         $index = $this->getConnection();
 
         try {
+            /** @var IndexInfo $info */
             $info = spin(
                 callback: fn () => $index->getInfo(),
                 message: 'Fetching your index info',
@@ -47,6 +50,7 @@ class VectorInfoCommand extends Command
         $this->components->twoColumnDetail('Namespace Count', (string) count($info->namespaces));
         $this->components->twoColumnDetail('Vector Count', (string) $info->vectorCount);
         $this->components->twoColumnDetail('Pending Vectors', (string) $info->pendingVectorCount);
+        $this->components->twoColumnDetail('Storage Size', (string) Number::fileSize($info->indexSize));
         $this->line('');
 
         if ($info->indexType === IndexType::DENSE || $info->indexType === IndexType::HYBRID) {

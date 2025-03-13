@@ -48,13 +48,10 @@ class VectorNamespaceListCommand extends Command
                 'pending_vector_count' => $namespaceInfo->pendingVectorCount,
             ])
             // Exclude default vector
-            ->filter(fn (array $namespace) => $namespace['name'] !== '');
-
-        if ($namespaces->isEmpty()) {
-            $this->components->info('This index does not have any namespaces');
-
-            return self::SUCCESS;
-        }
+            ->map(fn (array $namespace) => [
+                ...$namespace,
+                'name' => $namespace['name'] !== '' ? $namespace['name'] : '<fg=gray>(default)</>',
+            ]);
 
         table(
             headers: ['Namespace', 'Vector Count', 'Pending Vector Count'],

@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Upstash\Vector\Contracts\IndexInterface;
 use Upstash\Vector\Laravel\Console\Commands\Concerns\ConnectionOptionTrait;
 use Upstash\Vector\Laravel\Console\Commands\Concerns\HandlesGeneralExceptionsTrait;
+use Upstash\Vector\NamespaceInfo;
 
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\multiselect;
@@ -42,11 +43,35 @@ class VectorNamespaceResetCommand extends Command
             return self::SUCCESS;
         }
 
+        $namespaceInfos = $this->getNamespacesInformation($index, $namespacesToReset->toArray());
+        $vectorsThatWillBeDeleted = $namespaceInfos->sum(fn (NamespaceInfo $namespaceInfo) => $namespaceInfo->vectorCount);
+        $namespacesThatWillBeReset = $namespaceInfos->count();
+
+        if ($namespacesThatWillBeReset === 0) {
+            $this->components->error('None of the namespaces you selected exist');
+
+            return self::FAILURE;
+        }
+
+        $namespacesThatExist = $namespaceInfos->keys();
+        $namespacesThatCannotBeReset = $namespacesToReset->diff($namespacesThatExist);
+        $namespacesToReset = $namespacesToReset->intersect($namespacesThatExist);
+
+        if ($namespacesThatCannotBeReset->isNotEmpty()) {
+            $namespacesThatCannotBeReset->each(
+                fn (string $namespace) => $this->components->error(sprintf('Namespace %s does not exist', $namespace))
+            );
+        }
+
         if (! confirm(
             label: $namespacesToReset->count() > 1
                 ? 'Are you sure you want to reset those namespaces'
                 : sprintf('Are you sure you want to reset namespace %s?', $namespacesToReset->first()),
-            hint: 'This action cannot be undone.',
+            hint: sprintf(
+                '%s vectors will be deleted across %s namespaces. (This action cannot be undone)',
+                $vectorsThatWillBeDeleted,
+                $namespacesThatWillBeReset,
+            ),
         )) {
             $this->components->info('Nothing was reset.');
 
@@ -85,8 +110,21 @@ class VectorNamespaceResetCommand extends Command
         $namespacesToDelete = multiselect(
             label: 'Select the namespaces to delete',
             options: $namespaces->keyBy(fn (string $namespace) => $namespace)->toArray(),
+            required: true,
         );
 
         return collect($namespacesToDelete);
+    }
+
+    /**
+     * @return Collection<string, NamespaceInfo>
+     */
+    private function getNamespacesInformation(IndexInterface $index, array $namespaces): Collection
+    {
+        return spin(
+            callback: fn () => collect($index->getInfo()->namespaces)
+                ->filter(fn (NamespaceInfo $namespaceInfo, string $namespace) => in_array($namespace, $namespaces)),
+            message: 'Fetching namespace information',
+        );
     }
 }
