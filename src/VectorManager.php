@@ -127,7 +127,6 @@ class VectorManager implements IndexInterface
         $connection = Arr::get($this->getConfig(), sprintf('connections.%s', $connectionName));
         if ($connection === null) {
             throw new MissingConnectionException(
-                message: sprintf('Connection "%s" not found in config', $connectionName),
                 connectionName: $connectionName,
             );
         }
